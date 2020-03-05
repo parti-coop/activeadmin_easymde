@@ -1,0 +1,1 @@
+require 'activeadmin/easymde_editor/engine'
