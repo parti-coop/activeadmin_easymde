@@ -1,26 +1,24 @@
 $(document).ready(function () {
   $('.easymde-editor').each(function () {
     var options = { element: $(this).get(0) };
-    options = $.extend({}, options, $(this).data('options'));
-    if (options.toolbar) {
-      var indexCite = options.toolbar.indexOf('image-caption');
-      if (~indexCite) {
-        options.toolbar[indexCite] = {
-          name: 'image-caption',
-          action: function(editor){
-            var cm = editor.codemirror;
-            var selection = cm.getSelection();
-            cm.replaceSelection('<i class="image-caption">' + selection + '</i>');
-            if (!selection) {
-              var cursorPos = cm.getCursor();
-              cm.setCursor(cursorPos.line, cursorPos.ch - 2);
-            }
-          },
-          className: 'fa fa-subscript',
-          title: '이미지 설명',
+    options = $.extend({
+      renderingConfig: {
+        markedOptions: {
+          renderer: new marked.Renderer(),
         }
       }
-    }
+    }, options, $(this).data('options'));
+
+    var renderer = options['renderingConfig']['markedOptions']['renderer'];
+    const originalRendererImage = renderer.image.bind(renderer);
+    renderer.image = (href, title, text) => {
+      var result = originalRendererImage(href, title, text);
+      if (text && options.imageCaption) {
+        result = "<figure>" + result + "<figcaption>" + text + "</figcaption></figure>"
+      }
+      return result;
+    };
+
     var editor = new EasyMDE(options);
     $(this).data({editor: editor});
   });

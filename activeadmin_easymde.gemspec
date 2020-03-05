@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
 
   spec.summary       = 'EasyMde editor for ActiveAdmin'
   spec.description   = 'An Active Admin plugin to use EasyMde Editor'
-  spec.homepage      = 'https://github.com/YevheniiPylypenko/activeadmin_easymde'
+  spec.homepage      = 'https://github.com/parti-coop/activeadmin_easymde'
   spec.license       = 'MIT'
 
   spec.files         = `git ls-files -z`.split("\x0").reject do |f|
