@@ -3,14 +3,14 @@ $(document).ready(function () {
     var options = { element: $(this).get(0) };
     options = $.extend({}, options, $(this).data('options'));
     if (options.toolbar) {
-      var indexCite = options.toolbar.indexOf('cite');
+      var indexCite = options.toolbar.indexOf('image-caption');
       if (~indexCite) {
         options.toolbar[indexCite] = {
-          name: 'cite',
+          name: 'image-caption',
           action: function(editor){
             var cm = editor.codemirror;
             var selection = cm.getSelection();
-            cm.replaceSelection('<cite>' + selection + '</cite>');
+            cm.replaceSelection('<i class="image-caption">' + selection + '</i>');
             if (!selection) {
               var cursorPos = cm.getCursor();
               cm.setCursor(cursorPos.line, cursorPos.ch - 2);
