@@ -10,8 +10,8 @@ $(document).ready(function () {
     }, options, $(this).data('options'));
 
     var renderer = options['renderingConfig']['markedOptions']['renderer'];
-    const originalRendererImage = renderer.image.bind(renderer);
-    renderer.image = (href, title, text) => {
+    var originalRendererImage = renderer.image.bind(renderer);
+    renderer.image = function(href, title, text) {
       var result = originalRendererImage(href, title, text);
       if (text && options.imageCaption) {
         result = "<figure>" + result + "<figcaption>" + text + "</figcaption></figure>"
