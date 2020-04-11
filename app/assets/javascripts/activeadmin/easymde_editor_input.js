@@ -1,4 +1,9 @@
 $(document).ready(function () {
+  function htmlDecode(value){
+    "use strict";
+    return $('<div/>').html(value).text();
+  }
+
   $('.easymde-editor').each(function () {
     var options = { element: $(this).get(0) };
     options = $.extend({
@@ -14,7 +19,7 @@ $(document).ready(function () {
     renderer.image = function(href, title, text) {
       var result = originalRendererImage(href, title, text);
       if (text && options.imageCaption) {
-        result = "<figure>" + result + "<figcaption>" + text + "</figcaption></figure>"
+        result = "<figure>" + result + "<figcaption>" + htmlDecode(text) + "</figcaption></figure>"
       }
       return result;
     };
